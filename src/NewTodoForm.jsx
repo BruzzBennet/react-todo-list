@@ -1,27 +1,27 @@
-import {useState} from "react"
-import { preprocessCSS } from "vite"
+import { useState } from "react"
 
-export function NewTodoForm({onSubmit}){
-    const{newItem, setNewItem} = useState("")
-    
-    function handleSubmit(e){
-        e.preventDefault()
+export function NewTodoForm({ onSubmit }) {
+  const [newItem, setNewItem] = useState("")
 
-        onSubmit(newItem)
+  function handleSubmit(e) {
+    e.preventDefault()
+    if (newItem.trim() === "") return
+    onSubmit(newItem)
+    setNewItem("")
+  }
 
-        setNewItem("")
-    }
-
+  return (
     <form onSubmit={handleSubmit} className="new-item-form">
-        <div className="form-row">
-          <label>New Item</label>
-          <input 
-            value={newItem} 
-            onChange={e => setNewItem(e.target.value)} 
-            type="tex" 
-            id="item" 
-          />
-        </div>
-        <button className="btn">Add</button>
+      <div className="form-row">
+        <label htmlFor="item">New Item</label>
+        <input
+          value={newItem}
+          onChange={e => setNewItem(e.target.value)}
+          type="text"
+          id="item"
+        />
+      </div>
+      <button className="btn">Add</button>
     </form>
+  )
 }
